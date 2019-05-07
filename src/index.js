@@ -1,40 +1,32 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import printMe from './print.js';
-import './style.css';
-import Icon from './icon.jpg';
-import Data from './data.json'; // Data 变量包含可直接使用的 JSON 解析得到的对象
+// import './style.css';
+// import Icon from './icon.jpg';
+// import Data from './data.json'; // Data 变量包含可直接使用的 JSON 解析得到的对象
 
 
 function component() {
-  const btn = document.createElement('button');
-  btn.innerHTML = 'Click me and check the console!';
-  btn.onclick = printMe;
-  
-  const myIcon = new Image();
-  myIcon.src = Icon;
+  return import(/* webpackChunkName: "lodash" */ 'lodash').then(function(_) {
+    lement = document.createElement('div');
+    const btn = document.createElement('button');
 
-  const element = document.createElement('div');
-  element.innerHTML = _.join(['Hello', 'webpack'], ',');
-  // element.classList.add('hello');
-  
-  // element.appendChild(myIcon);
-  element.appendChild(btn);
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
-  console.log(Data);
+    btn.innerHTML = 'Click me and check the console!';
+    btn.onclick = printMe;
 
-  return element;
-}
+    element.appendChild(btn);
 
-var element = component();
-document.body.appendChild(element);
-
-if(module.hot) {
-  module.hot.accept('./print.js', function() {
-    console.log('Accepting the updated printMe module!');
-    // printMe();
-    
-    document.body.removeChild(element);
-    element = component();
-    document.body.appendChild(element);
+    return element;
+  }).catch(function() {
+    console.log('An error occurred while loading the component')
   });
 }
+component().then(function(component) {
+  document.body.appendChild(component);
+});
+/* 
+* *
+Tips
+注意上面中的\/* webpackChunkName: "lodash" *\/这段注释，它并不是可有可无的，它能帮助我们结合output.chunkFilename把分离出的模块最终命名为lodash.bundle.js而非[id].bundle.js。
+ */

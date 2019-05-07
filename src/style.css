@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'jinlei';
+  src: url(./DroidSansFallback.ttf);
+}
+
+body {
+  background-image: url(./icon.jpg);
+  background-color: blueviolet;
+  font-family: 'jinlei';
+  color: red;
+}
+.hello {
+  color: red;
+}

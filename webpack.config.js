@@ -12,10 +12,12 @@ module.exports = {
   },
   entry: {
     app: './src/index.js',
-    print: './src/print.js'
+    // print: './src/print.js'
+    anothor: './src/anothor.js'
   }, // 入口起点，可以指定多个入口起点
   output: { // 输出，只可指定一个输出配置
-    filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].bundle.js', // // 在配置文件中使用`process.env.NODE_ENV`
+    filename: '[name].bundle.js', // // 在配置文件中使用`process.env.NODE_ENV`
+    // filename: process.env.NODE_ENV === 'production' ? '[name].[chunkhash].js' : '[name].bundle.js', // // 在配置文件中使用`process.env.NODE_ENV`
     path: path.resolve(__dirname, 'dist') // 输出文件所在的目录
   },
   plugins: [
@@ -25,7 +27,10 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     // new webpack.HotModuleReplacementPlugin(), // 启用 HMR
-    new webpack.NamedModulesPlugin() // 打印日志信息时 webpack 默认使用模块的数字 ID 指代模块，不便于 debug，这个插件可以将其替换为模块的真实路径
+    new webpack.NamedModulesPlugin(), // 打印日志信息时 webpack 默认使用模块的数字 ID 指代模块，不便于 debug，这个插件可以将其替换为模块的真实路径
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common'
+    })
   ],
   module: {
     rules: [

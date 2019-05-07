@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import './h.js'
 // 其他引入注释...
 
 function component() {
